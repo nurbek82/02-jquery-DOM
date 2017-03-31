@@ -7,10 +7,10 @@ function Article (opts) {
   // Save ALL the properties of `opts` into `this`
   // lots of this.someProperty = opts.property
   this.author = opts.author;
-  this.url = opts.url;
+  this.authorUrl = opts.authorUrl;
   this.title = opts.title;
   this.body = opts.body;
-  this.date = opts.date;
+  this.publishedOn = opts.publishedOn;
 
 }
 
@@ -37,8 +37,12 @@ Article.prototype.toHtml = function() {
     5. publication date. */
 
     // lots of $newArticle.find...  (look at jQuery $.find docs)
-
-    console.log($newArticle);
+  $newArticle.find('h1').text(this.title);
+  $newArticle.find('a').text(this.author);
+  $newArticle.find('a').attr('href', this.authorUrl);
+  $newArticle.find('section.article-body').html(this.body);
+  $newArticle.find('time').attr('datetime', this.publishedOn);
+    // console.log($newArticle);
 
   // Display the date as a relative number of 'days ago'
   $newArticle.find('time').html('about ' + parseInt((new Date() - new Date(this.publishedOn))/60/60/24/1000) + ' days ago');
